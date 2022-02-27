@@ -1,4 +1,4 @@
-import 'package:drug_traffiking/Login/otp_page.dart';
+import 'package:drug_traffiking/homepage/homepage.dart';
 import 'package:drug_traffiking/model/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                               shape: BoxShape.circle,
                             ),
                             child: Image.asset(
-                              'assets/images/phone_number.png',
+                              'assets/images/anonymity.png',
                               height: 40,
                             ),
                           ),
@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.only(top: 30, left: 40.0),
                       child: Row(
                         children: const <Widget>[
-                          Text('Login',
+                          Text('Anonymous Login',
                               style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   color: Colors.white,
@@ -90,9 +90,9 @@ class _LoginPageState extends State<LoginPage> {
                           // ),
 
                           Padding(
-                            padding: const EdgeInsets.only(top: 75.0),
+                            padding: const EdgeInsets.only(top: 100.0),
                             child: Text(
-                              "We need to send OTP to authenticate your number",
+                              "Your login is made anonymously",
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
@@ -103,89 +103,18 @@ class _LoginPageState extends State<LoginPage> {
                           ),
 
                           Padding(
-                            padding: const EdgeInsets.only(top: 60.0),
+                            padding: const EdgeInsets.only(top: 30.0),
                             child: Column(
                               children: [
-                                TextFormField(
-                                  focusNode: myFocusNode,
-                                  cursorColor: Color(0xFF21BFBD),
-                                  autocorrect: true,
-                                  autofocus: false,
-                                  controller: TextEditingController()
-                                    ..text = phoneNumber
-                                    ..selection = TextSelection.collapsed(
-                                        offset: phoneNumber.length),
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                        RegExp("[0-9]+")),
-                                    LengthLimitingTextInputFormatter(10)
-                                  ],
-                                  onChanged: (text) {
-                                    phoneNumber = text;
-                                  },
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  decoration: InputDecoration(
-                                    hintText: "Enter Your Phone Number",
-                                    hintStyle: TextStyle(fontSize: 16),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color(0xFF21BFBD)),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color(0xFF21BFBD)),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    prefix: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 8),
-                                      child: Text(
-                                        '(+91)',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    suffixIcon: Icon(
-                                      Icons.check_circle,
-                                      color: Color(0xFF21BFBD),
-                                      size: 32,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 22,
-                                ),
                                 SizedBox(
                                   width: double.infinity,
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      if (phoneNumber == "") {
-                                        Snackbar().showFlushbar(
-                                            context: context,
-                                            message: "Enter a phone number");
-                                      } else if (phoneNumber.length != 10) {
-                                        Snackbar().showFlushbar(
-                                            context: context,
-                                            message: "Enter a 10-digit number");
-                                      } else {
-                                        Navigator.push(
+                                      Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            //  builder: (context) => UserDetails(
-                                            // verificationId: verificationId,
-                                            // resendToken: resendToken,
-                                            // phoneNumber: phoneNumber,
-                                            builder: (context) => OTPPage(),
-                                          ),
-                                        );
-                                      }
+                                            builder: (context) => HomePage(),
+                                          ));
                                     },
                                     style: ButtonStyle(
                                       foregroundColor:

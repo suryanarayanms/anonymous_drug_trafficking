@@ -1,6 +1,6 @@
 import 'package:drug_traffiking/Login/login_page.dart';
 import 'package:drug_traffiking/homepage/homepage.dart';
-import 'package:drug_traffiking/Login/personal_details.dart';
+
 import 'package:drug_traffiking/model/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -165,19 +165,17 @@ class _OTPPageState extends State<OTPPage> {
                                         Snackbar().showFlushbar(
                                             context: context,
                                             message: "Enter the 6 digit OTP");
-                                      } else {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            //  builder: (context) => UserDetails(
-                                            // verificationId: verificationId,
-                                            // resendToken: resendToken,
-                                            // phoneNumber: phoneNumber,
-                                            builder: (context) =>
-                                                PersonalDetails(),
-                                          ),
-                                        );
                                       }
+                                      // else {
+                                      //   Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+
+                                      //       builder: (context) =>
+                                      //           PersonalDetails(),
+                                      //     ),
+                                      //   );
+                                      // }
                                     },
                                     style: ButtonStyle(
                                       foregroundColor:

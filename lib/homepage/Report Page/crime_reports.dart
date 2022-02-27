@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
 
-class UploadDetails extends StatefulWidget {
-  const UploadDetails({Key? key}) : super(key: key);
+class CrimeReport extends StatefulWidget {
+  const CrimeReport({Key? key}) : super(key: key);
 
   @override
-  _UploadDetailsState createState() => _UploadDetailsState();
+  _CrimeReportState createState() => _CrimeReportState();
 }
 
-class _UploadDetailsState extends State<UploadDetails> {
+class _CrimeReportState extends State<CrimeReport> {
   Widget build(BuildContext context) {
     String information = "";
     FocusNode myFocusNode = FocusNode();
@@ -47,7 +47,7 @@ class _UploadDetailsState extends State<UploadDetails> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 28.0, top: 20),
-            child: Text('Report a',
+            child: Text('Current',
                 style: TextStyle(
                     fontFamily: 'Montserrat',
                     color: Colors.black,
@@ -56,7 +56,7 @@ class _UploadDetailsState extends State<UploadDetails> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 28.0),
-            child: Text('Crime',
+            child: Text('Report',
                 style: TextStyle(
                     fontFamily: 'Montserrat',
                     color: Colors.black,
@@ -83,22 +83,6 @@ class _UploadDetailsState extends State<UploadDetails> {
                             color: Color(0xFF21BFBD),
                             shape: BoxShape.rectangle,
                             borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/images/gallery.png',
-                              height: 50,
-                            ),
-                            SizedBox(height: 12),
-                            Text("Click here to upload",
-                                style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 17.0)),
-                          ],
-                        ),
                       ),
                     ),
                   ],
@@ -112,6 +96,7 @@ class _UploadDetailsState extends State<UploadDetails> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 24, horizontal: 32),
             child: TextFormField(
+              enabled: false,
               cursorColor: Color(0xFF21BFBD),
               focusNode: myFocusNode,
               autocorrect: true,
@@ -129,12 +114,19 @@ class _UploadDetailsState extends State<UploadDetails> {
               onChanged: (text) {
                 information = text;
               },
+
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
               decoration: InputDecoration(
-                hintText: "Enter some details about the crime scene",
+                border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
+                ),
+                hintText:
+                    "Description or the information\nabout the crime scene\ncomes over here\nWhich is summited by the user",
                 hintStyle: TextStyle(fontSize: 16),
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFF21BFBD)),
@@ -142,7 +134,7 @@ class _UploadDetailsState extends State<UploadDetails> {
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFF21BFBD)),
                     borderRadius: BorderRadius.circular(10)),
-                hintMaxLines: 2,
+                hintMaxLines: null,
               ),
               maxLines: null,
               minLines: null,
@@ -151,45 +143,49 @@ class _UploadDetailsState extends State<UploadDetails> {
           SizedBox(
             height: 10,
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 24, horizontal: 32),
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (information == "") {
-                    Snackbar().showFlushbar(
-                        context: context, message: "Enter some information");
-                  } else {
-                    Navigator.of(context).pop(
-                      MaterialPageRoute(
-                        builder: (context) => HomePage(),
-                      ),
-                    );
-                    print(information);
-                  }
-                },
-                style: ButtonStyle(
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Color(0xFF21BFBD)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(14.0),
-                  child: Text(
-                    'S  U  B  M  I  T',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-              ),
-            ),
-          )
+          // Padding(
+          //   padding: EdgeInsets.symmetric(vertical: 24, horizontal: 32),
+          //   child: SizedBox(
+          //     width: double.infinity,
+          //     child: ElevatedButton(
+          //       onPressed: () {
+          //         if (information == "") {
+          //           Snackbar().showFlushbar(
+          //               context: context, message: "Enter some information");
+          //         } else {
+          //           Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //               //  builder: (context) => UserDetails(
+          //               // verificationId: verificationId,
+          //               // resendToken: resendToken,
+          //               // phoneNumber: phoneNumber,
+          //               builder: (context) => HomePage(),
+          //             ),
+          //           );
+          //         }
+          //       },
+          //       style: ButtonStyle(
+          //         foregroundColor:
+          //             MaterialStateProperty.all<Color>(Colors.white),
+          //         backgroundColor:
+          //             MaterialStateProperty.all<Color>(Color(0xFF21BFBD)),
+          //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          //           RoundedRectangleBorder(
+          //             borderRadius: BorderRadius.circular(10.0),
+          //           ),
+          //         ),
+          //       ),
+          //       child: const Padding(
+          //         padding: EdgeInsets.all(14.0),
+          //         child: Text(
+          //           'S  U  B  M  I  T',
+          //           style: TextStyle(fontSize: 16),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

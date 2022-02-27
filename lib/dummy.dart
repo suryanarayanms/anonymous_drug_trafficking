@@ -1,236 +1,237 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import 'Login/otp_page.dart';
-import 'Login/personal_details.dart';
-import 'homepage/homepage.dart';
-import 'model/flushbar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class Summa extends StatefulWidget {
-  const Summa({Key? key}) : super(key: key);
+class AboutPage extends StatefulWidget {
+  const AboutPage({Key? key}) : super(key: key);
 
   @override
-  _SummaState createState() => _SummaState();
+  _AboutPageState createState() => _AboutPageState();
 }
 
-class _SummaState extends State<Summa> {
-  late double deviceHeight;
-  late double deviceWidth;
-  String personal_details = "";
-  FocusNode myFocusNode = FocusNode();
+class _AboutPageState extends State<AboutPage> {
+  String? appVersion;
+
+  @override
+  void initState() {
+    main();
+    super.initState();
+  }
+
+  Future<void> main() async {
+    // final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      // appVersion = packageInfo.version;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    deviceHeight = MediaQuery.of(context).size.height;
-    deviceWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Column(
-          children: [
-            ClipPath(
-              clipper: MyClipper(),
-              child: Container(
-                height: 320,
-                decoration: BoxDecoration(color: Color(0xFF21BFBD)),
-                child: Column(
+    return Stack(
+      children: [
+        Scaffold(
+          backgroundColor: Colors.black,
+          body: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 85),
+                child: Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 75.0),
-                      child: Stack(
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            height: 70,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Image.asset(
-                              'assets/images/user.png',
-                              height: 40,
-                            ),
-                          ),
-                        ],
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Icon(
+                          Icons.keyboard_arrow_left_sharp,
+                          color: Colors.white,
+                          size: 40,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 30, left: 40.0),
-                      child: Row(
-                        children: const <Widget>[
-                          Text('Personal Details',
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30.0)),
-                          SizedBox(width: 10.0),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 40.0),
+                    const SizedBox(width: 10),
+                    Text(
+                      'About',
+                      // style: GoogleFonts.spartan(
+                      //     textStyle: const TextStyle(
+                      //   color: Colors.white,
+                      //   fontWeight: FontWeight.bold,
+                      //   fontSize: 30,
+                      // )),
+                    )
                   ],
                 ),
               ),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 24, horizontal: 32),
+              const SizedBox(
+                height: 19,
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Card(
+                          elevation: 15,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100.0),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          child: const SizedBox(
+                            width: 150,
+                            child: Image(
+                                image: AssetImage('assets/ic_launcher.png')),
+                          ),
+                        ),
+                        const SizedBox(height: 17),
+                        Text(
+                          'Butterfly Effect',
+                          // style: GoogleFonts.spartan(
+                          //     textStyle: const TextStyle(
+                          //   color: Colors.white,
+                          //   fontWeight: FontWeight.bold,
+                          //   fontSize: 30,
+                          // )),
+                        ),
+                        Text(
+                          'v$appVersion',
+                          //   style: GoogleFonts.spartan(
+                          //       textStyle: const TextStyle(
+                          //     color: Colors.white,
+                          //   )),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 30),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                       child: Column(
                         children: [
-                          // Align(
-                          //   alignment: Alignment.topLeft,
-                          //   child: GestureDetector(
-                          //     onTap: () => Navigator.pop(context),
-                          //     child: Icon(
-                          //       Icons.arrow_back,
-                          //       size: 32,
-                          //       color: Colors.black54,
-                          //     ),
-                          //   ),
-                          // ),
-
-                          Padding(
-                            padding: const EdgeInsets.only(top: 75.0),
-                            child: Text(
-                              "Just to know your name",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black38,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
+                          Text(
+                            'Butterfly Effect Will Be An Open-Source Project\nAnd Can Be Found On',
+                            textAlign: TextAlign.center,
+                            // style: GoogleFonts.spartan(
+                            //     textStyle: const TextStyle(
+                            //   color: Colors.white,
+                            //   fontSize: 14,
+                            // )),
                           ),
-
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 50,
-                            ),
-                            child: TextFormField(
-                              focusNode: myFocusNode,
-                              autocorrect: false,
-                              autofocus: false,
-                              controller: TextEditingController()
-                                ..text = personal_details
-                                ..selection = TextSelection.collapsed(
-                                    offset: personal_details.length),
-                              keyboardType: TextInputType.text,
-                              inputFormatters: [
-                                // FilteringTextInputFormatter.allow(RegExp("[0-9]+")),
-                                LengthLimitingTextInputFormatter(100)
-                              ],
-                              onChanged: (text) {
-                                personal_details = text;
-                              },
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              decoration: InputDecoration(
-                                hintText: "Your name remains annonymous",
-                                hintStyle: TextStyle(fontSize: 16),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xFF21BFBD)),
-                                    borderRadius: BorderRadius.circular(10)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xFF21BFBD)),
-                                    borderRadius: BorderRadius.circular(10)),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 22,
-                          ),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (personal_details == "") {
-                                  Snackbar().showFlushbar(
-                                      context: context,
-                                      message: "Enter your name");
-                                } else if (personal_details == 1) {
-                                  Snackbar().showFlushbar(
-                                      context: context,
-                                      message: "Enter a valid name");
-                                } else if (personal_details == 2) {
-                                  Snackbar().showFlushbar(
-                                      context: context,
-                                      message: "Enter a valid name");
-                                } else {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      //  builder: (context) => UserDetails(
-                                      // verificationId: verificationId,
-                                      // resendToken: resendToken,
-                                      // phoneNumber: phoneNumber,
-                                      builder: (context) => HomePage(),
-                                    ),
-                                  );
-                                }
-                              },
-                              style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.white),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Color(0xFF21BFBD)),
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
+                          const SizedBox(height: 10),
+                          TextButton(
+                            onPressed: () {
+                              launch('https://github.com/suryanarayanms');
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Image(
+                                    height: 35,
+                                    image:
+                                        AssetImage('assets/github_icon_2.png')),
+                                const SizedBox(width: 7),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width / 4,
+                                  child: Text(
+                                    'Github',
+                                    // style: GoogleFonts.spartan(
+                                    //     textStyle: const TextStyle(
+                                    //   color: Colors.white,
+                                    //   fontWeight: FontWeight.bold,
+                                    //   fontSize: 25,
+                                    // )),
                                   ),
                                 ),
-                              ),
-                              child: const Padding(
-                                padding: EdgeInsets.all(14.0),
-                                child: Text(
-                                  'S  U  B  M  I  T',
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                              ),
+                              ],
                             ),
-                          )
+                          ),
+                          const SizedBox(height: 40),
+                          Text(
+                            'Crush Over Love ❤️💫',
+                            textAlign: TextAlign.center,
+                            // style: GoogleFonts.spartan(
+                            //     textStyle: const TextStyle(
+                            //   color: Colors.white,
+                            //   fontSize: 16,
+                            // )),
+                          ),
                         ],
                       ),
                     ),
-                  ),
+                    const SizedBox(height: 50),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            'For Queries',
+                            textAlign: TextAlign.center,
+                            // style: GoogleFonts.spartan(
+                            //     textStyle: const TextStyle(
+                            //   color: Colors.white,
+                            //   fontSize: 16,
+                            // )),
+                          ),
+                          const SizedBox(height: 10),
+                          TextButton(
+                            onPressed: () {
+                              final Uri emailLaunchUri = Uri(
+                                scheme: 'mailto',
+                                path: 'suryanarayan.moola@gmail.com',
+                              );
+                              launch(emailLaunchUri.toString());
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.mail_outline_outlined,
+                                  color: Colors.white,
+                                ),
+                                const SizedBox(width: 7),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width / 4,
+                                  child: Text(
+                                    'Contact Us',
+                                    // style: GoogleFonts.spartan(
+                                    //     textStyle: const TextStyle(
+                                    //   color: Colors.white,
+                                    //   fontWeight: FontWeight.bold,
+                                    //   fontSize: 16,
+                                    // )),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Padding(padding: EdgeInsets.only(left: 17)),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 30, 5, 20),
+                      child: Center(
+                        child: Text(
+                          'Made with ❤️ by Surya',
+                          // style: GoogleFonts.spartan(
+                          //     textStyle: const TextStyle(
+                          //   color: Colors.white,
+                          //   fontSize: 12,
+                          // )),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
-      ),
+      ],
     );
-  }
-}
-
-class MyClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = new Path();
-    path.lineTo(0, size.height - 70);
-    var controllPoint = Offset(50, size.height);
-    var endPoint = Offset(size.width / 2, size.height);
-    path.quadraticBezierTo(
-        controllPoint.dx, controllPoint.dy, endPoint.dx, endPoint.dy);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, 0);
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    // TODO: implement shouldReclip
-    return true;
   }
 }
