@@ -1,4 +1,5 @@
 import 'package:drug_traffiking/Login/login_page.dart';
+import 'package:drug_traffiking/Login/loginpage.dart';
 
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: Loginpage(),
     );
   }
 }

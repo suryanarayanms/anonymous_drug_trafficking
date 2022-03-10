@@ -1,19 +1,17 @@
-import 'package:drug_traffiking/Login/login_page.dart';
-import 'package:drug_traffiking/homepage/homepage.dart';
-
+import 'package:drug_traffiking/Login/otp_page.dart';
 import 'package:drug_traffiking/model/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class OTPPage extends StatefulWidget {
+class Loginpage extends StatefulWidget {
   @override
-  _OTPPageState createState() => _OTPPageState();
+  _LoginpageState createState() => _LoginpageState();
 }
 
-class _OTPPageState extends State<OTPPage> {
+class _LoginpageState extends State<Loginpage> {
   late double deviceHeight;
   late double deviceWidth;
-  String OTP = "";
+  String phonenumber = "";
   FocusNode myFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
@@ -43,7 +41,7 @@ class _OTPPageState extends State<OTPPage> {
                               shape: BoxShape.circle,
                             ),
                             child: Image.asset(
-                              'assets/images/otp_verification.png',
+                              'assets/images/phone_number.png',
                               height: 40,
                             ),
                           ),
@@ -55,7 +53,7 @@ class _OTPPageState extends State<OTPPage> {
                       padding: const EdgeInsets.only(top: 30, left: 40.0),
                       child: Row(
                         children: const <Widget>[
-                          Text('OTP Verification',
+                          Text('Login',
                               style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   color: Colors.white,
@@ -94,7 +92,7 @@ class _OTPPageState extends State<OTPPage> {
                           Padding(
                             padding: const EdgeInsets.only(top: 75.0),
                             child: Text(
-                              "Please enter the OTP sent to your mobile number",
+                              "We need to send OTP to authenticate your number",
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
@@ -114,24 +112,24 @@ class _OTPPageState extends State<OTPPage> {
                                   autocorrect: true,
                                   autofocus: false,
                                   controller: TextEditingController()
-                                    ..text = OTP
+                                    ..text = phonenumber
                                     ..selection = TextSelection.collapsed(
-                                        offset: OTP.length),
+                                        offset: phonenumber.length),
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
                                     FilteringTextInputFormatter.allow(
                                         RegExp("[0-9]+")),
-                                    LengthLimitingTextInputFormatter(6)
+                                    LengthLimitingTextInputFormatter(10)
                                   ],
                                   onChanged: (text) {
-                                    OTP = text;
+                                    phonenumber = text;
                                   },
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   decoration: InputDecoration(
-                                    hintText: "Enter the OTP",
+                                    hintText: "Enter Your Phone Number",
                                     hintStyle: TextStyle(fontSize: 16),
                                     enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -143,6 +141,17 @@ class _OTPPageState extends State<OTPPage> {
                                             color: Color(0xFF21BFBD)),
                                         borderRadius:
                                             BorderRadius.circular(10)),
+                                    prefix: Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8),
+                                      child: Text(
+                                        '(+91)',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
                                     suffixIcon: Icon(
                                       Icons.check_circle,
                                       color: Color(0xFF21BFBD),
@@ -151,31 +160,29 @@ class _OTPPageState extends State<OTPPage> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 22,
+                                  height: 25,
                                 ),
                                 SizedBox(
                                   width: double.infinity,
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      if (OTP == "") {
+                                      if (phonenumber == "") {
                                         Snackbar().showFlushbar(
                                             context: context,
-                                            message: "Enter the OTP");
-                                      } else if (OTP.length != 6) {
+                                            message: "Enter your phone number");
+                                      } else if (phonenumber.length != 10) {
                                         Snackbar().showFlushbar(
                                             context: context,
-                                            message: "Enter the 6 digit OTP");
+                                            message:
+                                                "Enter a valid phone number");
+                                      } else {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => OTPPage(),
+                                          ),
+                                        );
                                       }
-                                      // else {
-                                      //   Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-
-                                      //       builder: (context) =>
-                                      //           PersonalDetails(),
-                                      //     ),
-                                      //   );
-                                      // }
                                     },
                                     style: ButtonStyle(
                                       foregroundColor:
@@ -195,25 +202,11 @@ class _OTPPageState extends State<OTPPage> {
                                     child: const Padding(
                                       padding: EdgeInsets.all(14.0),
                                       child: Text(
-                                        'V E R I F Y',
+                                        'L O G I N',
                                         style: TextStyle(fontSize: 16),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(18.0),
-                                  child: InkWell(
-                                      onTap: () {},
-                                      child: Text(
-                                        "Resend  OTP ?",
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black38,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      )),
                                 ),
                               ],
                             ),

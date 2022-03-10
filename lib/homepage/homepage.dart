@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late double deviceHeight;
   late double deviceWidth;
-  final number = '+917708433608';
+  final number = '100';
 
   @override
   Widget build(BuildContext context) {
