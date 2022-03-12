@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "582038759341",
+    "project_id": "ardt-483e1",
+    "storage_bucket": "ardt-483e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582038759341:android:a0423882b9facc72f4e324",
+        "android_client_info": {
+          "package_name": "com.example.drug_traffiking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "582038759341-dl4j8770d7mri6nlchd5gjje1jijqt09.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6KyAydph1CQXaRCiRKVGqgd-E-ZaSeAw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "582038759341-dl4j8770d7mri6nlchd5gjje1jijqt09.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

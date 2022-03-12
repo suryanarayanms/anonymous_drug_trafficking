@@ -1,4 +1,3 @@
-import 'package:drug_traffiking/Login/login_page.dart';
 import 'package:drug_traffiking/homepage/homepage.dart';
 
 import 'package:drug_traffiking/model/flushbar.dart';
@@ -6,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class OTPPage extends StatefulWidget {
+  // OTPPage(String phonenumber);
+
   @override
   _OTPPageState createState() => _OTPPageState();
 }

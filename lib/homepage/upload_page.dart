@@ -3,6 +3,11 @@ import 'package:drug_traffiking/model/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'dart:math';
+
+import 'package:image_picker/image_picker.dart';
 
 class UploadDetails extends StatefulWidget {
   const UploadDetails({Key? key}) : super(key: key);
@@ -12,6 +17,37 @@ class UploadDetails extends StatefulWidget {
 }
 
 class _UploadDetailsState extends State<UploadDetails> {
+  File? image;
+
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+      if (image == null) return;
+
+      final imageTemp = File(image.path);
+
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  Future pickImageC() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+
+      if (image == null) return;
+
+      final imageTemp = File(image.path);
+
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     String information = "";
     FocusNode myFocusNode = FocusNode();
@@ -75,32 +111,46 @@ class _UploadDetailsState extends State<UploadDetails> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       InkWell(
-                        onTap: () {},
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: 150,
-                          width: 300,
-                          decoration: BoxDecoration(
-                              color: Color(0xFF21BFBD),
-                              shape: BoxShape.rectangle,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                'assets/images/gallery.png',
-                                height: 50,
+                        onTap: () {
+                          pickImageC();
+                        },
+                        child: image != null
+                            ? Container(
+                                height: 150,
+                                width: 300,
+                                decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: FittedBox(
+                                    fit: BoxFit.fill,
+                                    child: Image.file(image!)),
+                              )
+                            : Container(
+                                alignment: Alignment.center,
+                                height: 150,
+                                width: 300,
+                                decoration: BoxDecoration(
+                                    color: Color(0xFF21BFBD),
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/gallery.png',
+                                      height: 50,
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text("Click here to upload",
+                                        style: TextStyle(
+                                            fontFamily: 'Montserrat',
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 17.0)),
+                                  ],
+                                ),
                               ),
-                              SizedBox(height: 12),
-                              Text("Click here to upload",
-                                  style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17.0)),
-                            ],
-                          ),
-                        ),
                       ),
                     ],
                   ),
@@ -110,6 +160,7 @@ class _UploadDetailsState extends State<UploadDetails> {
             SizedBox(
               height: 40,
             ),
+            // image != null ? Image.file(image!) : Text("No image selected"),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 24, horizontal: 32),
               child: TextFormField(
@@ -158,7 +209,10 @@ class _UploadDetailsState extends State<UploadDetails> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    if (information == "") {
+                    if (image == null) {
+                      Snackbar().showFlushbar(
+                          context: context, message: "Upload an image");
+                    } else if (information == "") {
                       Snackbar().showFlushbar(
                           context: context, message: "Enter some information");
                     } else {
@@ -168,6 +222,7 @@ class _UploadDetailsState extends State<UploadDetails> {
                         ),
                       );
                       print(information);
+                      print(image);
                     }
                   },
                   style: ButtonStyle(

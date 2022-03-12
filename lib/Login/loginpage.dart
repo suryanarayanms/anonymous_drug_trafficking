@@ -174,7 +174,7 @@ class _LoginpageState extends State<Loginpage> {
                                         Snackbar().showFlushbar(
                                             context: context,
                                             message:
-                                                "Enter a valid phone number");
+                                                "Enter a 10-digit phone number");
                                       } else {
                                         Navigator.push(
                                           context,

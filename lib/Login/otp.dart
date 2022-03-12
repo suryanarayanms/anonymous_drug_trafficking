@@ -1,17 +1,29 @@
+// import 'package:drug_traffiking/Login/login_page.dart';
 import 'package:drug_traffiking/homepage/homepage.dart';
+import 'package:drug_traffiking/Login/loginpage.dart';
+
 import 'package:drug_traffiking/model/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class LoginPage extends StatefulWidget {
+class OTPP extends StatefulWidget {
+  final String verificationId;
+  final int? resendToken;
+  final String phonenumber;
+  const OTPP(
+      {Key? key,
+      required this.verificationId,
+      required this.resendToken,
+      required this.phonenumber})
+      : super(key: key);
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _OTPPState createState() => _OTPPState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _OTPPState extends State<OTPP> {
   late double deviceHeight;
   late double deviceWidth;
-  String phoneNumber = "";
+  String OTP = "";
   FocusNode myFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
@@ -41,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                               shape: BoxShape.circle,
                             ),
                             child: Image.asset(
-                              'assets/images/anonymity.png',
+                              'assets/images/otp_verification.png',
                               height: 40,
                             ),
                           ),
@@ -53,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.only(top: 30, left: 40.0),
                       child: Row(
                         children: const <Widget>[
-                          Text('Anonymous Login',
+                          Text('OTP Verification',
                               style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   color: Colors.white,
@@ -90,9 +102,9 @@ class _LoginPageState extends State<LoginPage> {
                           // ),
 
                           Padding(
-                            padding: const EdgeInsets.only(top: 100.0),
+                            padding: const EdgeInsets.only(top: 75.0),
                             child: Text(
-                              "Your login is made anonymously",
+                              "Please enter the OTP sent to your mobile number",
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
@@ -103,18 +115,74 @@ class _LoginPageState extends State<LoginPage> {
                           ),
 
                           Padding(
-                            padding: const EdgeInsets.only(top: 30.0),
+                            padding: const EdgeInsets.only(top: 60.0),
                             child: Column(
                               children: [
+                                TextFormField(
+                                  cursorColor: Color(0xFF21BFBD),
+                                  focusNode: myFocusNode,
+                                  autocorrect: true,
+                                  autofocus: false,
+                                  controller: TextEditingController()
+                                    ..text = OTP
+                                    ..selection = TextSelection.collapsed(
+                                        offset: OTP.length),
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp("[0-9]+")),
+                                    LengthLimitingTextInputFormatter(6)
+                                  ],
+                                  onChanged: (text) {
+                                    OTP = text;
+                                  },
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  decoration: InputDecoration(
+                                    hintText: "Enter the OTP",
+                                    hintStyle: TextStyle(fontSize: 16),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(0xFF21BFBD)),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(0xFF21BFBD)),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    suffixIcon: Icon(
+                                      Icons.check_circle,
+                                      color: Color(0xFF21BFBD),
+                                      size: 32,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 22,
+                                ),
                                 SizedBox(
                                   width: double.infinity,
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      Navigator.push(
+                                      if (OTP == "") {
+                                        Snackbar().showFlushbar(
+                                            context: context,
+                                            message: "Enter the OTP");
+                                      } else if (OTP.length != 6) {
+                                        Snackbar().showFlushbar(
+                                            context: context,
+                                            message: "Enter the 6 digit OTP");
+                                      } else {
+                                        Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => HomePage(),
-                                          ));
+                                          ),
+                                        );
+                                      }
                                     },
                                     style: ButtonStyle(
                                       foregroundColor:
@@ -134,12 +202,26 @@ class _LoginPageState extends State<LoginPage> {
                                     child: const Padding(
                                       padding: EdgeInsets.all(14.0),
                                       child: Text(
-                                        'L O G I N',
+                                        'V E R I F Y',
                                         style: TextStyle(fontSize: 16),
                                       ),
                                     ),
                                   ),
-                                )
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(18.0),
+                                  child: InkWell(
+                                      onTap: () {},
+                                      child: Text(
+                                        "Resend  OTP ?",
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black38,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      )),
+                                ),
                               ],
                             ),
                           ),
